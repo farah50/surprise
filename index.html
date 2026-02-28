@@ -9,22 +9,24 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   
+  <link rel="preload" as="image" href="machine.png">
+
   <link rel="stylesheet" href="style.css">
   
   <script src="script.js" defer></script>
 </head>
 <body>
-  <audio id="birthday-song" src="birthday_song.mp3" preload="auto"></audio>
+  <audio id="birthday-song" src="birthday_song.mp3" preload="none"></audio>
 
-  <img id="char-sprite" src="MAIN-CHAR1.png" style="display:none;" alt="Main Player">
-  <img id="cake-sprite" src="Pixel_arte_de_aniversário___-removebg-preview-Photoroom.png" style="display:none;" alt="Cake">
+  <img id="char-sprite" src="MAIN-CHAR1.png" style="display:none;" loading="lazy" alt="Main Player">
+  <img id="cake-sprite" src="Pixel_arte_de_aniversário___-removebg-preview-Photoroom.png" style="display:none;" loading="lazy" alt="Cake">
 
-  <img id="gc1" src="char1.png" style="display:none;" alt="Guest 1">
-  <img id="gc2" src="char2.png" style="display:none;" alt="Guest 2">
-  <img id="gc3" src="char3.png" style="display:none;" alt="Guest 3">
-  <img id="gc4" src="char4.png" style="display:none;" alt="Guest 4">
-  <img id="gc5" src="char5.png" style="display:none;" alt="Guest 5">
-  <img id="gc6" src="char6.png" style="display:none;" alt="Guest 6">
+  <img id="gc1" src="char1.png" style="display:none;" loading="lazy" alt="Guest 1">
+  <img id="gc2" src="char2.png" style="display:none;" loading="lazy" alt="Guest 2">
+  <img id="gc3" src="char3.png" style="display:none;" loading="lazy" alt="Guest 3">
+  <img id="gc4" src="char4.png" style="display:none;" loading="lazy" alt="Guest 4">
+  <img id="gc5" src="char5.png" style="display:none;" loading="lazy" alt="Guest 5">
+  <img id="gc6" src="char6.png" style="display:none;" loading="lazy" alt="Guest 6">
 
   <div id="bg-wrap">
     <div class="stone-bg"></div>
@@ -113,7 +115,7 @@
              <div class="p-bar"><div class="p-bar-fill" style="height:70%"></div></div>
              <div class="p-bar"><div class="p-bar-fill blue" style="height:50%"></div></div>
           </div>
-          <img src="MAIN-CHAR2.png" class="rpg-portrait-img" alt="Player Portrait">
+          <img src="MAIN-CHAR2.png" class="rpg-portrait-img" loading="lazy" alt="Player Portrait">
         </div>
         <div class="rpg-stats">
           <div class="rpg-label">NAME:</div>
