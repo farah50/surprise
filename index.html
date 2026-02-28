@@ -23,7 +23,7 @@ body{width:100vw;height:100vh;overflow:hidden;font-family:'Press Start 2P',monos
 .scanlines{position:absolute;inset:0;z-index:6;background:repeating-linear-gradient(to bottom,transparent 0,transparent 3px,rgba(0,0,0,.12) 3px,rgba(0,0,0,.12) 4px);pointer-events:none;}
 
 /* SCROLLING TICKER BANNER (TOP) */
-#ticker{position:fixed;top:0;left:0;right:0;z-index:30;background:#0a0018;border-bottom:3px solid #ff00aa;box-shadow:0 2px 20px #ff00aa44;overflow:hidden;height:32px;display:none;}
+#ticker{position:fixed;bottom:0;left:0;right:0;z-index:30;background:#0a0018;border-top:3px solid #ff00aa;box-shadow:0 -2px 20px #ff00aa44;overflow:hidden;height:32px;display:none;}
 .ticker-inner{display:inline-block;white-space:nowrap;font-size:11px;color:#ff44ff;padding:8px 0;animation:tickerScroll 18s linear infinite;}
 @keyframes tickerScroll{from{transform:translateX(100vw)}to{transform:translateX(-100%)}}
 
@@ -77,7 +77,11 @@ body{width:100vw;height:100vh;overflow:hidden;font-family:'Press Start 2P',monos
   font-family: 'Press Start 2P', monospace; text-shadow: 2px 2px 0 #000;
 }
 .hud-left { display: flex; flex-direction: column; gap: 8px; }
-#hud-lives { font-size: clamp(12px, 3vw, 24px); color: #ff3333; display: flex; gap: 4px; }
+/* ---- تعديل: تكبير حجم القلوب هنا ---- */
+#hud-lives { 
+  font-size: clamp(24px, 6vw, 48px); /* تم التكبير */
+  color: #ff3333; display: flex; gap: 4px; 
+}
 .heart.empty { color: #333; }
 #hud-coins { font-size: clamp(10px, 2.5vw, 20px); color: #ffee00; }
 .hud-center { font-size: clamp(10px, 2.5vw, 18px); color: #fff; text-align: center; margin-top: 5px; }
@@ -244,8 +248,18 @@ body{width:100vw;height:100vh;overflow:hidden;font-family:'Press Start 2P',monos
 </style>
 </head>
 <body>
+<audio id="birthday-song" src="birthday_song.mp3" preload="auto" loop></audio>
+
 <img id="char-sprite" src="MAIN-CHAR1.png" style="display:none;" alt="">
 <img id="cake-sprite" src="Pixel_arte_de_aniversário___-removebg-preview-Photoroom.png" style="display:none;" alt="">
+
+<img id="gc1" src="char1.png" style="display:none;" alt="Guest 1">
+<img id="gc2" src="char2.png" style="display:none;" alt="Guest 2">
+<img id="gc3" src="char3.png" style="display:none;" alt="Guest 3">
+<img id="gc4" src="char4.png" style="display:none;" alt="Guest 4">
+<img id="gc5" src="char5.png" style="display:none;" alt="Guest 5">
+<img id="gc6" src="char6.png" style="display:none;" alt="Guest 6">
+
 
 <div id="bg-wrap">
   <div class="stone-bg"></div>
@@ -312,7 +326,7 @@ body{width:100vw;height:100vh;overflow:hidden;font-family:'Press Start 2P',monos
   </div>
   
   <div id="fw-layer"></div>
-  <div id="celeb-text"><span class="ct1">🎉 WISH GRANTED! 🎉</span><span class="ct2">HAPPY BIRTHDAY ANNA!</span></div>
+  <div id="celeb-text"><span class="ct1"> WISH GRANTED! </span><span class="ct2">HAPPY BIRTHDAY ANNA!</span></div>
 
   <div id="rpg-card">
     <div class="rpg-inner">
@@ -387,20 +401,28 @@ let cc=3,introStarted=false;
 function flashScreen(){flashEl.classList.remove('do-flash');void flashEl.offsetWidth;flashEl.classList.add('do-flash');}
 function showCount(n){countEl.textContent=n;countEl.style.animation='none';void countEl.offsetWidth;countEl.style.animation='';playCountBeep(n);flashScreen();}
 function startCountdown(){showCount(cc);const iv=setInterval(()=>{cc--;if(cc>0)showCount(cc);else{clearInterval(iv);setTimeout(showBirthday,900);}},1100);}
+
 function showBirthday(){
   flashScreen();
   document.getElementById('countdown').style.display='none';
   document.getElementById('birthday-screen').style.display='flex';
   document.getElementById('wish-btn').style.display='inline-block';
   document.getElementById('ticker').style.display='block';
+  
+  const bgm = document.getElementById('birthday-song');
+  if(bgm) { 
+      bgm.volume = 0.5; 
+      bgm.play().catch(e => console.log("Audio autoplay blocked requires interaction first")); 
+  }
+
   playFanfare();
   spawnBits(80);
   setInterval(()=>spawnBits(6),700);
 }
 function startIntro(){if(introStarted)return;introStarted=true;document.removeEventListener('click',startIntro);document.removeEventListener('keydown',startIntro);initAudio();startCountdown();}
 document.addEventListener('click',startIntro);document.addEventListener('keydown',startIntro);
-countEl.textContent='▶';countEl.style.cssText+='animation:none;opacity:1;transform:scale(1);font-size:clamp(30px,8vw,80px);text-shadow:3px 3px 0 #ff00aa,0 0 30px #aa00ff;';
-const hint=document.createElement('div');hint.style.cssText='position:absolute;bottom:18%;left:50%;transform:translateX(-50%);font-family:"Press Start 2P",monospace;font-size:clamp(8px,2vw,14px);color:#ff44ff;text-shadow:0 0 10px #ff00ff;animation:blink 1s steps(1) infinite;z-index:40;text-align:center;white-space:nowrap;';hint.textContent='CLICK OR PRESS ANY KEY';document.getElementById('stage').appendChild(hint);
+countEl.textContent='▶';countEl.style.cssText+='animation:none;opacity:1;transform:scale(1);font-size:clamp(30px,30vw,50px);text-shadow:3px 3px 0 #ff00aa,0 0 30px #aa00ff;';
+const hint=document.createElement('div');hint.style.cssText='position:absolute;bottom:30%;left:50%;transform:translateX(-50%);font-family:"Press Start 2P",monospace;font-size:clamp(8px,10vw,10px);color:#ff44ff;text-shadow:0 0 10px #ff00ff;animation:blink 1s steps(1) infinite;z-index:40;text-align:center;white-space:nowrap;';hint.textContent='CLICK OR PRESS ANY KEY';document.getElementById('stage').appendChild(hint);
 document.addEventListener('click',()=>hint.remove(),{once:true});document.addEventListener('keydown',()=>hint.remove(),{once:true});
 
 /* ══════════════════════════════════════════════════
@@ -451,6 +473,10 @@ function enterWishLevel(){
   document.getElementById('wish-level').style.display='block';
   document.getElementById('mobile-controls').style.display='block';
   document.getElementById('ticker').style.display='none'; // hide ticker during gameplay
+  
+  // Stop the birthday song when entering the wish level
+  document.getElementById('birthday-song').pause();
+
   initAudio();
   const fl=document.createElement('div');fl.style.cssText='position:absolute;inset:0;background:#fff;z-index:300;animation:flashAnim .5s ease-out forwards;pointer-events:none;';document.getElementById('wish-level').appendChild(fl);setTimeout(()=>fl.remove(),600);
   setTimeout(initScene,100);
@@ -801,6 +827,29 @@ function drawCake(){
     }
   }
 }
+function drawPartyGroup(){
+  const ty = gndY();
+  // نبدأ الرسم على بعد 150 بكسل يمين الكعكة
+  let startX = CAKE_WX + 100;
+  const spacing = 10; // المسافة بين كل شخصية
+
+  for(let i=1; i<=6; i++){
+      const img = document.getElementById('gc'+i);
+      if(img && img.complete && img.naturalWidth > 0){
+          // حساب الحجم المناسب (ارتفاع تقريبي 70 بكسل)
+          const targetH = 70;
+          const scale = targetH / img.naturalHeight;
+          const dw = img.naturalWidth * scale;
+          const dh = img.naturalHeight * scale;
+
+          const wx = startX + (i-1)*spacing;
+          const sx = toSX(wx);
+          if(sx > -dw && sx < VW){
+              g2d.drawImage(img, sx, ty - dh, dw, dh);
+          }
+      }
+  }
+}
 
 /* ── CHARACTER ── */
 function drawChar(){
@@ -841,6 +890,7 @@ function loop(){
   drawGround();
   drawCoins();
   drawCake();
+  drawPartyGroup();
   drawChar();
   if(celebMode)drawBits();
 
