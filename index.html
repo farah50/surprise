@@ -29,7 +29,7 @@ body{width:100vw;height:100vh;overflow:hidden;font-family:'Press Start 2P',monos
 
 /* BIRTHDAY SCREEN */
 #stage{position:relative;z-index:20;width:100%;height:100%;display:flex;align-items:center;justify-content:center;}
-#countdown{position:absolute;display:flex;align-items:center;justify-content:center;width:100%;height:100%;}
+#countdown{position:absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); z-index: 100; width: auto; height: auto;}
 .count-number{font-size:clamp(80px,22vw,200px);color:#fff;text-shadow:4px 4px 0 #ff00aa,8px 8px 0 #aa00ff,0 0 40px #ff44ff;letter-spacing:-4px;animation:countPop .6s cubic-bezier(.23,1.4,.32,1) forwards,countFade .25s ease-in .65s forwards;opacity:0;transform:scale(.2);}
 @keyframes countPop{0%{opacity:0;transform:scale(.2) rotate(-8deg)}60%{opacity:1;transform:scale(1.15) rotate(2deg)}100%{opacity:1;transform:scale(1) rotate(0)}}
 @keyframes countFade{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(2.5);filter:blur(6px)}}
@@ -422,7 +422,7 @@ function showBirthday(){
 function startIntro(){if(introStarted)return;introStarted=true;document.removeEventListener('click',startIntro);document.removeEventListener('keydown',startIntro);initAudio();startCountdown();}
 document.addEventListener('click',startIntro);document.addEventListener('keydown',startIntro);
 countEl.textContent='▶';countEl.style.cssText+='animation:none;opacity:1;transform:scale(1);font-size:clamp(30px,30vw,50px);text-shadow:3px 3px 0 #ff00aa,0 0 30px #aa00ff;';
-const hint=document.createElement('div');hint.style.cssText='position:absolute;bottom:30%;left:50%;transform:translateX(-50%);font-family:"Press Start 2P",monospace;font-size:clamp(8px,10vw,10px);color:#ff44ff;text-shadow:0 0 10px #ff00ff;animation:blink 1s steps(1) infinite;z-index:40;text-align:center;white-space:nowrap;';hint.textContent='CLICK OR PRESS ANY KEY';document.getElementById('stage').appendChild(hint);
+const hint=document.createElement('div');hint.style.cssText='position:absolute;bottom:40%;left:50%;transform:translateX(-50%);font-family:"Press Start 2P",monospace;font-size:clamp(8px,10vw,10px);color:#ff44ff;text-shadow:0 0 10px #ff00ff;animation:blink 1s steps(1) infinite;z-index:40;text-align:center;white-space:nowrap;';hint.textContent='CLICK OR PRESS ANY KEY';document.getElementById('stage').appendChild(hint);
 document.addEventListener('click',()=>hint.remove(),{once:true});document.addEventListener('keydown',()=>hint.remove(),{once:true});
 
 /* ══════════════════════════════════════════════════
